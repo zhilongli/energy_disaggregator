@@ -1,0 +1,13 @@
+plan for energy disaggregation backend:
+
+- Train models in lab computer using collected data. Each appliance will have a separate model. Models are trained with the denoising autoencoder neural network. Trained models saved as .h5 file containing the weights (and also the mmax normalization parameter?)
+- Upload the .h5 files to the server, which collects the site meter data and preprocesses it into "chunks". In the DAEDisaggregator class, run disaggregate_chunk() on the latest chunk of data, get the predicted consumption of each appliance. 
+- The driver script for disaggregating should make use of multi-processing since multiple appliances should be disaggregated at the same time. (this driver script to be completed last after the disaggregation function has been tested)
+- Within the disaggregator code, the main changes should be within the disaggregate() function - WIP
+- TODO: need to add some visualization tools in the custom package
+
+Some details:
+- The input to the network is (w=window_size) number of nodes, representing a continuous TIME SERIES of total site meter readings. Note it should not just be the wattage in the node, but also the time, so it's good to use a pd timeseries instead of a np array.
+- Output of the network is a continuous time series of w nodes, each node is the predicted wattage of that appliance at that time. 
+- In the current implementation the disaggregated result is stored as an NILMTK datastore object. I want to change that to a simple pd timeseries. 
+- a chunk is just all the data for the main and appliance meter, and the array is reshaped to account for a sequence length in the second axis of the array. 

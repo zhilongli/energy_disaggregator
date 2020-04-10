@@ -1,0 +1,6 @@
+- for running the disaggregation algo (trained model), in the EC2 instance, we might not need all the nilmtk packages, just need to have tensorflow to disaggregate the incoming data. 
+- Also disaggregation cannot be done in "real-time", probably hourly chunks. How to modify the current code to do more real time nilmtk?
+- EC2 and cornell CIT: 2 servers we can use, all linux. Need to make sure that the packages can be installed and used on the servers. 
+- training can be done offline on a separate computer. 
+Node-red, influxDB, Chronograf
+- Write a new, cleaner disaggregation algorithm. 
